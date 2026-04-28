@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latin Verb Conjugations</title>
+    <title>Complete Latin Verbs</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #0f0f23;
             color: #e2e8f0;
             min-height: 100vh;
@@ -27,10 +23,10 @@
             background: #1a1a2e;
             border-radius: 16px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
-            overflow: hidden;
             max-height: 90vh;
+            overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
         }
         
@@ -41,307 +37,281 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
-        .header h1 {
-            font-size: 1.5em;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
-        }
+        .header h1 { font-size: 1.4em; font-weight: 600; margin-bottom: 8px; }
+        .header p { font-size: 0.9em; opacity: 0.8; }
         
-        .header p {
-            font-size: 0.95em;
-            opacity: 0.8;
-            font-weight: 400;
-        }
-        
-        .tabs {
-            display: flex;
-            background: #262626;
-        }
-        
+        .tabs { display: flex; background: #262626; }
         .tab {
-            flex: 1;
-            padding: 16px 12px;
-            text-align: center;
-            border: none;
-            background: none;
-            font-size: 0.9em;
-            font-weight: 500;
-            color: #a0aec0;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            flex: 1; padding: 16px 12px; border: none; background: none;
+            font-size: 0.85em; font-weight: 500; color: #a0aec0; cursor: pointer;
+            transition: all 0.3s; position: relative;
         }
-        
-        .tab:hover {
-            color: #e2e8f0;
-        }
-        
-        .tab.active {
-            color: #63b3ed;
-        }
-        
+        .tab:hover { color: #e2e8f0; }
+        .tab.active { color: #63b3ed; }
         .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 2px;
-            background: #63b3ed;
-            border-radius: 1px;
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 2px; background: #63b3ed; border-radius: 1px;
         }
         
-        .content {
-            padding: 30px;
-            overflow-y: auto;
-            flex: 1;
-            max-height: calc(90vh - 200px);
+        .content { padding: 30px; overflow-y: auto; max-height: calc(90vh - 220px); }
+        
+        .conjugation-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;
+        }
+        @media (max-width: 600px) { .conjugation-grid { grid-template-columns: 1fr; } }
+        
+        .table-container { background: #262626; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .table-title {
+            background: #374151; padding: 16px 20px; font-weight: 600; font-size: 0.9em;
+            color: #e2e8f0; text-transform: uppercase; letter-spacing: 0.05em;
         }
         
-        .conjugation-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            background: #262626;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
+        table { width: 100%; border-collapse: collapse; }
+        th { padding: 14px 12px; text-align: left; font-weight: 500; font-size: 0.8em; color: #cbd5e0; }
+        td { padding: 12px 12px; font-family: 'Georgia', serif; font-size: 0.95em; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        tr:last-child td { border-bottom: none; }
         
-        .conjugation-table th {
-            background: #374151;
-            padding: 16px 12px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.85em;
-            color: #e2e8f0;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+        .sg-row:nth-child(odd) { background: rgba(99, 179, 237, 0.08); }
+        .sg-row:nth-child(even) { background: rgba(99, 179, 237, 0.04); }
+        .pl-row:nth-child(odd) { background: rgba(34, 197, 94, 0.08); }
+        .pl-row:nth-child(even) { background: rgba(34, 197, 94, 0.04); }
         
-        .conjugation-table td {
-            padding: 14px 12px;
-            font-family: 'Georgia', serif;
-            font-size: 1em;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        .ending { color: #63b3ed; font-weight: 600; }
+        .stem { color: #22c55e; }
         
-        .conjugation-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .person-sg {
-            background: rgba(99, 179, 237, 0.1);
-        }
-        
-        .person-pl {
-            background: rgba(34, 197, 94, 0.08);
-        }
-        
-        .ending-highlight {
-            color: #63b3ed;
-            font-weight: 600;
-        }
-        
+        .tense-group { margin-bottom: 30px; }
         .tense-header {
-            font-size: 1.3em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: #f7fafc;
-        }
-        
-        .verb-info {
-            background: rgba(99, 179, 237, 0.1);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border-left: 4px solid #63b3ed;
-        }
-        
-        .verb-info h3 {
-            color: #63b3ed;
-            font-size: 1.1em;
-            margin-bottom: 8px;
-        }
-        
-        @media (max-width: 500px) {
-            .conjugation-table {
-                font-size: 0.9em;
-            }
-            .conjugation-table th,
-            .conjugation-table td {
-                padding: 12px 8px;
-            }
+            font-size: 1.2em; font-weight: 600; margin: 0 0 20px 0; padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1); color: #f7fafc;
         }
     </style>
 </head>
 <body>
     <div class="widget">
         <div class="header">
-            <h1>Latin Verb Conjugations</h1>
-            <p>amō, amāre, amāvī, amātus</p>
+            <h1>🏛️ Complete Latin Verbs</h1>
+            <p>amō, amāre, amāvī, amātus (1st conj.) | All persons, numbers, voices, moods</p>
         </div>
         
         <div class="tabs">
-            <button class="tab active" onclick="showTab('present')">Present</button>
-            <button class="tab" onclick="showTab('imperfect')">Imperfect</button>
-            <button class="tab" onclick="showTab('future')">Future</button>
-            <button class="tab" onclick="showTab('perfect')">Perfect</button>
-            <button class="tab" onclick="showTab('pluperfect')">Plupf.</button>
-            <button class="tab" onclick="showTab('futureperf')">Fut.Pf.</button>
+            <button class="tab active" onclick="showTab('indicative')">Indicative</button>
+            <button class="tab" onclick="showTab('subjunctive')">Subjunctive</button>
+            <button class="tab" onclick="showTab('imperative')">Imperative</button>
+            <button class="tab" onclick="showTab('infinitive')">Infinitive/Participle</button>
         </div>
         
         <div class="content">
-            <!-- PRESENT ACTIVE -->
-            <div id="present" class="tab-content active">
-                <div class="verb-info">
-                    <h3>Present Active Indicative • 1st Conjugation (amāre)</h3>
-                    <p>Pattern for all regular -āre verbs</p>
+            <!-- INDICATIVE (ALL 6 TENSES, ACTIVE & PASSIVE) -->
+            <div id="indicative" class="tab-content active">
+                <div class="tense-header">Present Indicative (Active)</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">Singular</div>
+                        <table>
+                            <tr><th>Person</th><th>Form</th></tr>
+                            <tr class="sg-row"><td>1st Sg.</td><td><span class="stem">am</span><span class="ending">ō</span></td></tr>
+                            <tr class="sg-row"><td>2nd Sg.</td><td><span class="stem">am</span><span class="ending">ās</span></td></tr>
+                            <tr class="sg-row"><td>3rd Sg.</td><td><span class="stem">am</span><span class="ending">at</span></td></tr>
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Plural</div>
+                        <table>
+                            <tr><th>Person</th><th>Form</th></tr>
+                            <tr class="pl-row"><td>1st Pl.</td><td><span class="stem">am</span><span class="ending">āmus</span></td></tr>
+                            <tr class="pl-row"><td>2nd Pl.</td><td><span class="stem">am</span><span class="ending">ātis</span></td></tr>
+                            <tr class="pl-row"><td>3rd Pl.</td><td><span class="stem">am</span><span class="ending">ant</span></td></tr>
+                        </table>
+                    </div>
                 </div>
-                <div class="tense-header">Active Voice</div>
-                <table class="conjugation-table">
-                    <thead>
-                        <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr class="person-sg">
-                            <td>1st</td>
-                            <td><span class="ending-highlight">amō</span></td>
-                            <td><span class="ending-highlight">amāmus</span></td>
-                        </tr>
-                        <tr class="person-sg">
-                            <td>2nd</td>
-                            <td><span class="ending-highlight">amās</span></td>
-                            <td><span class="ending-highlight">amātis</span></td>
-                        </tr>
-                        <tr class="person-sg">
-                            <td>3rd</td>
-                            <td><span class="ending-highlight">amat</span></td>
-                            <td><span class="ending-highlight">amant</span></td>
-                        </tr>
-                    </tbody>
-                </table>
 
-                <div class="tense-header">Passive Voice</div>
-                <table class="conjugation-table">
-                    <thead>
-                        <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr class="person-sg">
-                            <td>1st</td>
-                            <td><span class="ending-highlight">amor</span></td>
-                            <td><span class="ending-highlight">amāmur</span></td>
-                        </tr>
-                        <tr class="person-sg">
-                            <td>2nd</td>
-                            <td><span class="ending-highlight">amaris</span></td>
-                            <td><span class="ending-highlight">amāminī</span></td>
-                        </tr>
-                        <tr class="person-sg">
-                            <td>3rd</td>
-                            <td><span class="ending-highlight">amatur</span></td>
-                            <td><span class="ending-highlight">amantur</span></td>
-                        </tr>
-                    </tbody>
+                <div class="tense-header">Imperfect Indicative (Active)</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">Singular</div>
+                        <table>
+                            <tr><th>Person</th><th>Form</th></tr>
+                            <tr class="sg-row"><td>1st</td><td><span class="stem">amā</span><span class="ending">bam</span></td></tr>
+                            <tr class="sg-row"><td>2nd</td><td><span class="stem">amā</span><span class="ending">bās</span></td></tr>
+                            <tr class="sg-row"><td>3rd</td><td><span class="stem">amā</span><span class="ending">bat</span></td></tr>
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Plural</div>
+                        <table>
+                            <tr><th>Person</th><th>Form</th></tr>
+                            <tr class="pl-row"><td>1st</td><td><span class="stem">amā</span><span class="ending">bāmus</span></td></tr>
+                            <tr class="pl-row"><td>2nd</td><td><span class="stem">amā</span><span class="ending">bātis</span></td></tr>
+                            <tr class="pl-row"><td>3rd</td><td><span class="stem">amā</span><span class="ending">bant</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tense-header">Future Indicative (Active)</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">Singular</div>
+                        <table>
+                            <tr><th>Person</th><th>Form</th></tr>
+                            <tr class="sg-row"><td>1st</td><td><span class="stem">amā</span><span class="ending">bō</span></td></tr>
+                            <tr class="sg-row"><td>2nd</td><td><span class="stem">amā</span><span class="ending">bis</span></td></tr>
+                            <tr class="sg-row"><td>3rd</td><td><span class="stem">amā</span><span class="ending">bit</span></td></tr>
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Plural</div>
+                        <table>
+                            <tr><th>Person</th><th>Form</th></tr>
+                            <tr class="pl-row"><td>1st</td><td><span class="stem">amā</span><span class="ending">bimus</span></td></tr>
+                            <tr class="pl-row"><td>2nd</td><td><span class="stem">amā</span><span class="ending">bitis</span></td></tr>
+                            <tr class="pl-row"><td>3rd</td><td><span class="stem">amā</span><span class="ending">bunt</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tense-header">Perfect System (Active)</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">Perfect</div>
+                        <table>
+                            <tr><th>-</th><th>Singular</th></tr>
+                            <tr class="sg-row"><td>1st</td><td><span class="stem">amāv</span><span class="ending">ī</span></td></tr>
+                            <tr class="sg-row"><td>2nd</td><td><span class="stem">amāv</span><span class="ending">istī</span></td></tr>
+                            <tr class="sg-row"><td>3rd</td><td><span class="stem">amāv</span><span class="ending">it</span></td></tr>
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Pluperfect</div>
+                        <table>
+                            <tr><th>-</th><th>Singular</th></tr>
+                            <tr class="sg-row"><td>1st</td><td><span class="stem">amāver</span><span class="ending">am</span></td></tr>
+                            <tr class="sg-row"><td>2nd</td><td><span class="stem">amāver</span><span class="ending">ās</span></td></tr>
+                            <tr class="sg-row"><td>3rd</td><td><span class="stem">amāver</span><span class="ending">at</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBJUNCTIVE (ALL 4 TENSES) -->
+            <div id="subjunctive" class="tab-content">
+                <div class="tense-header">Present Subjunctive (Active)</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">All Persons (same vowel!)</div>
+                        <table>
+                            <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+                            <tr class="sg-row"><td>1st/2nd/3rd</td><td><span class="ending">em</span></td><td><span class="ending">ēmus / ētis / ent</span></td></tr>
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Examples</div>
+                        <table>
+                            <tr><th>-</th><th>Form</th></tr>
+                            <tr class="sg-row"><td>1st Sg.</td><td><span class="stem">am</span><span class="ending">em</span></td></tr>
+                            <tr class="sg-row"><td>1st Pl.</td><td><span class="stem">am</span><span class="ending">ēmus</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tense-header">Imperfect Subjunctive (Active)</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">Formula: 2nd Principal Part + -m + Secondary Endings</div>
+                        <table>
+                            <tr><th>-</th><th>Singular Example</th></tr>
+                            <tr class="sg-row"><td>All forms</td><td><span class="stem">amāre</span>m, <span class="stem">amāre</span>s, <span class="stem">amāre</span>t</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tense-header">Perfect & Pluperfect Subjunctive</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">Perfect Subj.</div>
+                        <table>
+                            <tr><th>-</th><th>Singular</th></tr>
+                            <tr class="sg-row"><td>-</td><td><span class="stem">amāver</span><span class="ending">im</span></td></tr>
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Plupf. Subj.</div>
+                        <table>
+                            <tr><th>-</th><th>Singular</th></tr>
+                            <tr class="sg-row"><td>-</td><td><span class="stem">amāvissem</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMPERATIVE -->
+            <div id="imperative" class="tab-content">
+                <div class="tense-header">Imperative Mood</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">Present Imperative Active</div>
+                        <table>
+                            <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+                            <tr class="sg-row"><td>2nd</td><td><span class="ending">ā</span></td><td><span class="ending">āte</span></td></tr>
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Future Imperative</div>
+                        <table>
+                            <tr><th>Singular</th><th>Plural</th></tr>
+                            <tr class="sg-row"><td><span class="ending">ātō</span></td><td><span class="ending">ātōte</span></td></tr>
+                            <tr class="sg-row"><td><span class="ending">atō</span></td><td><span class="ending">antō</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tense-header">Passive Imperative</div>
+                <table class="table-container">
+                    <tr><th colspan="3" style="background:#374151;padding:16px;">Present: -minī (2nd Pl.) | Future: -tor, -tor (Sg./Pl.)</th></tr>
+                    <tr><td>Example</td><td colspan="2"><span class="ending">amāminī</span> (be loved!)</td></tr>
                 </table>
             </div>
 
-            <!-- IMPERFECT -->
-            <div id="imperfect" class="tab-content">
-                <div class="verb-info">
-                    <h3>Imperfect Active Indicative • amāre</h3>
-                    <p>Stem + -bā- + secondary endings (same for ALL conjugations)</p>
+            <!-- INFINITIVES & PARTICIPLES -->
+            <div id="infinitive" class="tab-content">
+                <div class="tense-header">Principal Parts (amāre)</div>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:20px; margin-bottom:30px;">
+                    <div class="table-container">
+                        <div class="table-title">Present</div>
+                        <table><tr><td><span class="ending">amāre</span> (Active)</td></tr></table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Perfect</div>
+                        <table><tr><td><span class="ending">amāvisse</span></td></tr></table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Perfect Passive</div>
+                        <table><tr><td><span class="ending">amātum esse</span></td></tr></table>
+                    </div>
                 </div>
-                <table class="conjugation-table">
-                    <thead>
-                        <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr class="person-sg"><td>1st</td><td><span class="ending-highlight">amābam</span></td><td><span class="ending-highlight">amābāmus</span></td></tr>
-                        <tr class="person-sg"><td>2nd</td><td><span class="ending-highlight">amābās</span></td><td><span class="ending-highlight">amābātis</span></td></tr>
-                        <tr class="person-sg"><td>3rd</td><td><span class="ending-highlight">amābat</span></td><td><span class="ending-highlight">amābant</span></td></tr>
-                    </tbody>
-                </table>
-                <div style="font-size:0.9em; opacity:0.8; margin-top:15px;">
-                    Passive: amābar, amābāris, amābātur, etc.
-                </div>
-            </div>
 
-            <!-- FUTURE -->
-            <div id="future" class="tab-content">
-                <div class="verb-info">
-                    <h3>Future Active Indicative • 1st Conjugation</h3>
-                    <p>Stem + -bō endings (1st/2nd conj.); 3rd/4th use -am pattern</p>
+                <div class="tense-header">Participles (All Genders/Numbers)</div>
+                <div class="conjugation-grid">
+                    <div class="table-container">
+                        <div class="table-title">Present Active</div>
+                        <table>
+                            <tr><th>Case</th><th>Masc/Fem Sg.</th></tr>
+                            <tr class="sg-row"><td>Nom.</td><td><span class="ending">amāns</span></td></tr>
+                            <tr class="sg-row"><td>Acc.</td><td><span class="ending">antem</span></td></tr>
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title">Perfect Passive</div>
+                        <table>
+                            <tr><th>-</th><th>All Genders</th></tr>
+                            <tr class="sg-row"><td>Sg. Nom.</td><td><span class="ending">amātus -a -um</span></td></tr>
+                            <tr class="sg-row"><td>Pl. Nom.</td><td><span class="ending">amāti -ae -a</span></td></tr>
+                        </table>
+                    </div>
                 </div>
-                <table class="conjugation-table">
-                    <thead>
-                        <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr class="person-sg"><td>1st</td><td><span class="ending-highlight">amābō</span></td><td><span class="ending-highlight">amābimus</span></td></tr>
-                        <tr class="person-sg"><td>2nd</td><td><span class="ending-highlight">amābis</span></td><td><span class="ending-highlight">amābitis</span></td></tr>
-                        <tr class="person-sg"><td>3rd</td><td><span class="ending-highlight">amābit</span></td><td><span class="ending-highlight">amābunt</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
 
-            <!-- PERFECT -->
-            <div id="perfect" class="tab-content">
-                <div class="verb-info">
-                    <h3>Perfect Active Indicative • amāre</h3>
-                    <p>Perfect stem (amāv-) + primary endings</p>
-                </div>
-                <table class="conjugation-table">
-                    <thead>
-                        <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr class="person-sg"><td>1st</td><td><span class="ending-highlight">amāvī</span></td><td>amāvimus</td></tr>
-                        <tr class="person-sg"><td>2nd</td><td><span class="ending-highlight">amāvisti</span></td><td>amāvistis</td></tr>
-                        <tr class="person-sg"><td>3rd</td><td><span class="ending-highlight">amāvit</span></td><td><span class="ending-highlight">amāvērunt</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- PLUPERFECT -->
-            <div id="pluperfect" class="tab-content">
-                <div class="verb-info">
-                    <h3>Pluperfect Active Indicative</h3>
-                    <p>Perfect stem + imperfect of esse (-eram endings)</p>
-                </div>
-                <table class="conjugation-table">
-                    <thead>
-                        <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr class="person-sg"><td>1st</td><td><span class="ending-highlight">amāveram</span></td><td><span class="ending-highlight">amāverāmus</span></td></tr>
-                        <tr class="person-sg"><td>2nd</td><td><span class="ending-highlight">amāverās</span></td><td><span class="ending-highlight">amāverātis</span></td></tr>
-                        <tr class="person-sg"><td>3rd</td><td><span class="ending-highlight">amāverat</span></td><td><span class="ending-highlight">amāverant</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- FUTURE PERFECT -->
-            <div id="futureperf" class="tab-content">
-                <div class="verb-info">
-                    <h3>Future Perfect Active</h3>
-                    <p>Perfect stem + future of esse (-erō endings)</p>
-                </div>
-                <table class="conjugation-table">
-                    <thead>
-                        <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr class="person-sg"><td>1st</td><td><span class="ending-highlight">amāverō</span></td><td><span class="ending-highlight">amāverimus</span></td></tr>
-                        <tr class="person-sg"><td>2nd</td><td><span class="ending-highlight">amāveris</span></td><td><span class="ending-highlight">amāveritis</span></td></tr>
-                        <tr class="person-sg"><td>3rd</td><td><span class="ending-highlight">amāverit</span></td><td><span class="ending-highlight">amāverint</span></td></tr>
-                    </tbody>
+                <div class="tense-header">Future Active Participle</div>
+                <table class="table-container">
+                    <tr><th colspan="3">amātūrus -a -um (about to love)</th></tr>
                 </table>
             </div>
         </div>
@@ -349,15 +319,10 @@
 
     <script>
         function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-                content.style.display = 'none';
+            document.querySelectorAll('.tab-content').forEach(c => {
+                c.classList.remove('active'); c.style.display = 'none';
             });
-            
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             document.getElementById(tabName).style.display = 'block';
             event.target.classList.add('active');
