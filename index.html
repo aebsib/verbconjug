@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latin Verb Conjugation Rules</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .widget {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tab.active {
+            color: #4facfe;
+            background: white;
+            border-bottom: 3px solid #4facfe;
+        }
+        
+        .content {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .rule-category {
+            margin-bottom: 25px;
+        }
+        
+        .category-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .rule {
+            background: #f8f9fa;
+            border-left: 4px solid #4facfe;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .rule:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.2);
+        }
+        
+        .rule-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .rule-example {
+            font-family: 'Georgia', serif;
+            font-size: 1.1em;
+            color: #27ae60;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #27ae60;
+            margin-top: 10px;
+        }
+        
+        .rule-desc {
+            color: #5a6c7d;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <div class="header">
+            <h1>📚 Latin Verb Rules</h1>
+            <p>One example per essential rule</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('present')">Present</button>
+            <button class="tab" onclick="showTab('imperfect')">Imperfect</button>
+            <button class="tab" onclick="showTab('future')">Future</button>
+            <button class="tab" onclick="showTab('perfect')">Perfect</button>
+        </div>
+        
+        <div class="content">
+            <!-- Present Active Indicative -->
+            <div id="present" class="tab-content active">
+                <div class="rule-category">
+                    <div class="category-title">1st Conjugation (-āre)</div>
+                    <div class="rule">
+                        <div class="rule-title">Present Active: Stem + endings</div>
+                        <div class="rule-desc">
+                            Take present stem (am-) + personal endings: <span class="highlight">-ō, -ās, -at, -āmus, -ātis, -ant</span>
+                        </div>
+                        <div class="rule-example">
+                            am<span class="highlight">ō</span>, am<span class="highlight">ās</span>, am<span class="highlight">at</span>,<br>
+                            am<span class="highlight">āmus</span>, am<span class="highlight">ātis</span>, am<span class="highlight">ant</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-category">
+                    <div class="category-title">2nd Conjugation (-ēre)</div>
+                    <div class="rule">
+                        <div class="rule-title">Present Active: ē-stem + endings</div>
+                        <div class="rule-desc">
+                            Stem (habē-) + same endings as 1st (-ō, -ēs, -ēt, -ēmus, -ētis, -ent)
+                        </div>
+                        <div class="rule-example">
+                            hab<span class="highlight">eō</span>, hab<span class="highlight">ēs</span>, hab<span class="highlight">ēt</span>,<br>
+                            hab<span class="highlight">ēmus</span>, hab<span class="highlight">ētis</span>, hab<span class="highlight">ent</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-category">
+                    <div class="category-title">3rd Conjugation (-ere)</div>
+                    <div class="rule">
+                        <div class="rule-title">Present Active: Shorten vowel + endings</div>
+                        <div class="rule-desc">
+                            duc- (from dūcere) + -ō, -is, -it, -imus, -itis, -unt
+                        </div>
+                        <div class="rule-example">
+                            d<span class="highlight">ūcō</span>, d<span class="highlight">ūcis</span>, d<span class="highlight">ūcit</span>,<br>
+                            d<span class="highlight">ūcimus</span>, d<span class="highlight">ūcitis</span>, d<span class="highlight">ūcunt</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-category">
+                    <div class="category-title">Present Passive</div>
+                    <div class="rule">
+                        <div class="rule-title">Active endings → Passive -r</div>
+                        <div class="rule-desc">
+                            Replace -ō → -or; others add -r: amatur, amantur
+                        </div>
+                        <div class="rule-example">
+                            am<span class="highlight">or</span>, amar<span class="highlight">is</span>, amatu<span class="highlight">r</span>,<br>
+                            amamur, amamin<span class="highlight">is</span>, amantu<span class="highlight">r</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imperfect Active Indicative -->
+            <div id="imperfect" class="tab-content">
+                <div class="rule-category">
+                    <div class="category-title">Imperfect Active (All Conjugations)</div>
+                    <div class="rule">
+                        <div class="rule-title">Present stem + -bā- + personal endings</div>
+                        <div class="rule-desc">
+                            1st/2nd/3rd/4th all use same pattern: stem + bā + endings
+                        </div>
+                        <div class="rule-example">
+                            amā<span class="highlight">bam</span>, amā<span class="highlight">bās</span>, amā<span class="highlight">bat</span>,<br>
+                            amā<span class="highlight">bāmus</span>, amā<span class="highlight">bātis</span>, amā<span class="highlight">bant</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-category">
+                    <div class="category-title">Imperfect Passive</div>
+                    <div class="rule">
+                        <div class="rule-title">Imperfect active + -r endings</div>
+                        <div class="rule-desc">
+                            Same as active but passive endings (-bar, -bāris, etc.)
+                        </div>
+                        <div class="rule-example">
+                            amā<span class="highlight">bar</span>, amābā<span class="highlight">ris</span>, amābā<span class="highlight">tur</span>,<br>
+                            amābā<span class="highlight">mur</span>, amābā<span class="highlight">minī</span>, amāban<span class="highlight">tur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future Active Indicative -->
+            <div id="future" class="tab-content">
+                <div class="rule-category">
+                    <div class="category-title">1st/2nd Conjugation Future</div>
+                    <div class="rule">
+                        <div class="rule-title">Present stem + -bō</div>
+                        <div class="rule-desc">
+                            1st/2nd: stem + -bō, -bis, -bit, -bimus, -bitis, -bunt
+                        </div>
+                        <div class="rule-example">
+                            amā<span class="highlight">bō</span>, amā<span class="highlight">bis</span>, amā<span class="highlight">bit</span>,<br>
+                            amā<span class="highlight">bimus</span>, amā<span class="highlight">bitis</span>, amā<span class="highlight">bunt</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-category">
+                    <div class="category-title">3rd/4th Conjugation Future</div>
+                    <div class="rule">
+                        <div class="rule-title">Future stem (short e) + -am</div>
+                        <div class="rule-desc">
+                            3rd/4th: dūc- → ducam pattern (like present but -am endings)
+                        </div>
+                        <div class="rule-example">
+                            dūca<span class="highlight">m</span>, dūce<span class="highlight">ris</span>, dūce<span class="highlight">t</span>,<br>
+                            dūc<span class="highlight">ēmus</span>, dūce<span class="highlight">tis</span>, dūcen<span class="highlight">t</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Perfect System -->
+            <div id="perfect" class="tab-content">
+                <div class="rule-category">
+                    <div class="category-title">Perfect Active</div>
+                    <div class="rule">
+                        <div class="rule-title">Perfect stem + -ī</div>
+                        <div class="rule-desc">
+                            Perfect stem (amāv-) + -ī, -istī, -it, -imus, -istis, -ērunt
+                        </div>
+                        <div class="rule-example">
+                            amāv<span class="highlight">ī</span>, amāv<span class="highlight">istī</span>, amāv<span class="highlight">it</span>,<br>
+                            amāvimus, amāvistis, amāvēr<span class="highlight">unt</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-category">
+                    <div class="category-title">Pluperfect Active</div>
+                    <div class="rule">
+                        <div class="rule-title">Perfect stem + -eram</div>
+                        <div class="rule-desc">
+                            Perfect stem + imperfect of esse: amāveram pattern
+                        </div>
+                        <div class="rule-example">
+                            amāver<span class="highlight">am</span>, amāver<span class="highlight">ās</span>, amāver<span class="highlight">at</span>,<br>
+                            amāverā<span class="highlight">mus</span>, amāverā<span class="highlight">tis</span>, amāver<span class="highlight">ant</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-category">
+                    <div class="category-title">Perfect Passive</div>
+                    <div class="rule">
+                        <div class="rule-title">4th principal part + sum</div>
+                        <div class="rule-desc">
+                            Perfect Passive Participle + present tense of sum
+                        </div>
+                        <div class="rule-example">
+                            amā<span class="highlight">tus</span> + <span class="highlight">sum</span> = amātus sum,<br>
+                            amāti<span class="highlight">s</span> + <span class="highlight">es</span> = amātus es, etc.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activate selected tab
+            event.target.classList.add('active');
+        }
+
+        // Add active class to tab contents
+        document.addEventListener('DOMContentLoaded', function() {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                if (!content.classList.contains('active')) {
+                    content.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</body>
+</html>
